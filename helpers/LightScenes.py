@@ -10,13 +10,13 @@ class LightScenes():
         self.relative_uv_brightness = 1
         self.relative_rgb_brightness = 0.5
         self.percentages = [50, 50, 50]
-        self.fake_uv_color = [95, 0, 255]
+        self.fake_uv_color = [70, 0, 255]
         # self.fake_uv_color = [0, 85, 255]
 
     def update_data(self, percentages):
         self.percentages = percentages
 
-    def coral_1(self, percentage):
+    def coral_maldives(self, percentage):
         self.dmx.set_zones(1, [255, 255, 255, 255], 100 - (percentage * self.relative_uv_brightness))  # UV
         self.dmx.set_rgb(8, self.fake_uv_color, percentage * self.relative_rgb_brightness)  # RGB
         self.dmx.set_rgb(11, self.fake_uv_color, percentage * self.relative_rgb_brightness)  # RGB
@@ -34,8 +34,8 @@ class LightScenes():
 
     def loop(self):
         delay = 1 / 60
-        self.coral_1(self.percentages[0])
-        self.coral_2(self.percentages[1])
+        self.coral_maldives(self.percentages[1])
+        self.coral_2(self.percentages[0])
         self.coral_3(self.percentages[2])
         self.dmx.send()
         # print(self.percentages)
@@ -49,11 +49,11 @@ class LightScenes():
         step = int(10 / duration)  # Inverse scaling for the step value
 
         for percentage in range(100, -1, -step):  # Decreasing range from 100 to 0
-            self.coral_1(percentage)
+            self.coral_maldives(percentage)
             # print("Percentage:", percentage)
             self.dmx.send()
 
         for percentage in range(0, 100, step):  # Increasing range from 0 to 100
-            self.coral_1(percentage)
+            self.coral_maldives(percentage)
             # print("Percentage:", percentage)
             self.dmx.send()

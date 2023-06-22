@@ -3,7 +3,7 @@ import csv
 
 class DatasetHandler:
     def __init__(self):
-        self.file_path = 'data/coral_data.csv'
+        self.file_path = 'helpers/data/coral_data.csv'
         self.data = []
         self.read_csv()
 
