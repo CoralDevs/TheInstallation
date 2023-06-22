@@ -69,6 +69,24 @@ class PyLightDMX:
         for channel, value in zip(channels, values):
             self.set_data(channel, value)
 
+    def set_zones(self, channel, values, brightness=100):
+        # If given a single value, return a list of 4 zones:
+        if isinstance(channel, int):
+            channel_list = list(range(channel + 1, channel + 5))  # E.g. if given 2, assign [3, 4, 5, 6]
+        else:
+            warnings.warn(
+                "You are passing an invalid zone parameter. It should be an integer.",
+                PyLightDMXWarning, stacklevel=2)
+            return
+
+        self.set_data(channel, int(brightness*2.55))
+        # Check if values is a list of 4 integers between 0 and 255. Else set values to [0, 0, 0, 0]
+        if not (isinstance(values, list) and len(values) == 4 and all(
+                isinstance(x, int) and 0 <= x <= 255 for x in values)):
+            values = [0, 0, 0, 0]
+        for zone, value in zip(channel_list, values):
+            self.set_data(zone, value)
+
     def __del__(self):
         self.serial_connection.close()
         print('PyLightDMX: Closed serial connection')

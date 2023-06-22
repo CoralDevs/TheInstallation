@@ -34,3 +34,7 @@ def find_serial_number(serial_no):
                 return port.device
     warnings.warn(f"Device with Serial No. {serial_no} not found!", PortFinder, stacklevel=2)
     return -1
+
+
+if __name__ == "__main__":
+    print_device_info_list()
