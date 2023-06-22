@@ -32,7 +32,7 @@ class LightScenes():
     def send(self):
         self.dmx.send()
 
-    def loop2(self):
+    def loop(self):
         delay = 1 / 60
         self.coral_1(self.percentages[0])
         self.coral_2(self.percentages[1])
@@ -40,9 +40,6 @@ class LightScenes():
         self.dmx.send()
         # print(self.percentages)
         time.sleep(delay)
-
-    def loop(self):
-        pass
 
     def breathe_demo(self, duration=1):
         if duration <= 0 or duration > 10:
